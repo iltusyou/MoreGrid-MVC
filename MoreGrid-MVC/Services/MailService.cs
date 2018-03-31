@@ -16,13 +16,13 @@ namespace MoreGrid_MVC.Services
         private readonly string mailFrom = ConfigurationManager.AppSettings["MailFrom"];
 
         /// <summary>
-        /// 取得註冊信
+        /// 取得驗證信(通用)
         /// </summary>
         /// <param name="template"></param>
         /// <param name="userName"></param>
         /// <param name="validateUrl"></param>
         /// <returns></returns>
-        public string GetRegisterMailBody(string template, string userName, string validateUrl)
+        public string GetValidateMailBody(string template, string userName, string validateUrl)
         {
             template = template.Replace("{{userName}}", userName);
             template = template.Replace("{{validateUrl}}", validateUrl);

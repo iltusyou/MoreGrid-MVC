@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities;
+using MoreGrid_MVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -14,9 +15,13 @@ namespace MoreGrid_MVC.DataContext
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Models.Member>();
+            modelBuilder.Entity<MemberLoginRecord>();
+            modelBuilder.Entity<ForgetPassword>();
             base.OnModelCreating(modelBuilder);
         }
 
         public virtual DbSet<Models.Member> Members { get; set; }
+        public virtual DbSet<MemberLoginRecord> MemberLoginRecords { get; set; }
+        public virtual DbSet<ForgetPassword> ForgetPasswords { get; set; }
     }
 }

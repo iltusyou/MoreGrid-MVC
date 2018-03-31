@@ -7,6 +7,9 @@ using System.Web;
 
 namespace MoreGrid_MVC.Models
 {
+    /// <summary>
+    /// 會員
+    /// </summary>
     [Table("Member")]
     public class Member
     {

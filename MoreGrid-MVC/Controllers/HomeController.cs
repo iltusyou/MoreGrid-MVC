@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoreGrid_MVC.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,8 @@ namespace MoreGrid_MVC.Controllers
     {
         public ActionResult Index()
         {
+            var member = UserHelper.GetUserData();
+
             return View();
         }
 
