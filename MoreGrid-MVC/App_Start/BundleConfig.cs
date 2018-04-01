@@ -21,11 +21,15 @@ namespace MoreGrid_MVC
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/sb-admin-2.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/metisMenu/metisMenu.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/sb-admin-2.css",
+                      "~/Content/metisMenu/metisMenu.css",
+                      "~/Content/font-awesome/css/font-awesome.css"));
         }
     }
 }

@@ -24,7 +24,8 @@ namespace MoreGrid_MVC.Controllers
         #region 註冊
         public ActionResult Register()
         {
-            return View();
+            var view = new MemberRegisterView();
+            return View(view);
         }
 
         [HttpPost]
@@ -71,6 +72,14 @@ namespace MoreGrid_MVC.Controllers
             }
             return View(memberRegister);
         }
+
+        #region 註冊驗證
+        [HttpPost]
+        public ActionResult CheckEmail(string email)
+        {
+            return Json(memberService.CheckEmail(email));
+        }
+        #endregion
 
         public ActionResult EmailValidate(string memberId = "", string validateCode = "")
         {

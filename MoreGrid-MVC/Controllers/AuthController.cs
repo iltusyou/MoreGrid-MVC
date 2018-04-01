@@ -22,7 +22,8 @@ namespace MoreGrid_MVC.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            var view = new ViewModels.LoginView();
+            return View(view);
         }
 
         /// <summary>

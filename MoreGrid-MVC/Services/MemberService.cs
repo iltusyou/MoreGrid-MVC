@@ -43,7 +43,10 @@ namespace MoreGrid_MVC.Services
             }
         }
 
-        
+        public bool CheckEmail(string email)
+        {
+            return !(db.Members.Where(p => p.Email == email).Count() > 0);
+        }
 
         public List<Models.Member> Query(QueryMember queryMember)
         {
@@ -148,7 +151,6 @@ namespace MoreGrid_MVC.Services
                 if (query.Count() == 1)
                 {
                     member = query.FirstOrDefault();
-                    member.Password = "";
                     return member;
                 }
                     
