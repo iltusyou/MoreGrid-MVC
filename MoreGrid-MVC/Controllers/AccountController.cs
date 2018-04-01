@@ -39,6 +39,7 @@ namespace MoreGrid_MVC.Controllers
                 member.Password = memberRegister.Password;
                 member.Name = memberRegister.Name;
                 member.NickName = memberRegister.NickName;
+                member.Birthday = memberRegister.Birthday;
                 member.Phone = memberRegister.Phone;
                 member.ValidateCode = ValidateHelper.GetValidateCode();
                 member.Id = Guid.NewGuid();
@@ -56,19 +57,18 @@ namespace MoreGrid_MVC.Controllers
                 string message = memberService.Register(member);
                 if (message != string.Empty)
                 {
-                    result = message;
+                    TempData["ErrorMsg"] = message;
                 }
                 else if (!mailService.SendMail(member.Email, mailBody, "會員註冊信"))
                 {
-                    result = "寄送驗證信失敗";
+                    TempData["ErrorMsg"] = "寄送驗證信失敗";
                 }
                 else
                 {
-                    result = "註冊成功，請去收驗證信";
+                    TempData["SuccessMsg"] = "註冊成功，請去收驗證信";
                 }
 
-                TempData["Result"] = result;
-                return View("Result");
+                return View("Message");
             }
             return View(memberRegister);
         }
@@ -84,8 +84,12 @@ namespace MoreGrid_MVC.Controllers
         public ActionResult EmailValidate(string memberId = "", string validateCode = "")
         {
             string message = memberService.EmailValidate(memberId, validateCode);
-            TempData["Result"] = message == "" ? "驗證成功" : message;
-            return View("Result");
+            if (string.IsNullOrEmpty(message))
+                TempData["SuccessMsg"] = "驗證成功";
+            else
+                TempData["ErrorMsg"] = message;
+
+            return View("Message");
         }
         #endregion
 
@@ -105,8 +109,8 @@ namespace MoreGrid_MVC.Controllers
         {
             if (!ValidateHelper.IsValidEmail(email))
             {
-                TempData["Result"] = "Email格式錯誤";
-                return View("Result");
+                TempData["ErrorMsg"] = "Email格式錯誤";
+                return View("Message");
             }
 
             var queryMember = new QueryMember();
@@ -114,8 +118,8 @@ namespace MoreGrid_MVC.Controllers
             var memberList = memberService.Query(queryMember);
             if (memberList.Count == 0)
             {
-                TempData["Result"] = "查無此Email";
-                return View("Result");
+                TempData["ErrorMsg"] = "查無此Email";
+                return View("Message");
             }
 
             var member = memberList.FirstOrDefault();
@@ -123,8 +127,8 @@ namespace MoreGrid_MVC.Controllers
             string updateMsg = memberService.Update(member);
             if (!string.IsNullOrEmpty(updateMsg))
             {
-                TempData["Result"] = updateMsg;
-                return View("Result");
+                TempData["ErrorMsg"] = updateMsg;
+                return View("Message");
             }
 
             string template = System.IO.File.ReadAllText(Server.MapPath("~/Views/MailTemplate/RegisterMailTemplate.html"));
@@ -136,12 +140,12 @@ namespace MoreGrid_MVC.Controllers
 
             if (!mailService.SendMail(member.Email, mailBody, "重新設定密碼"))
             {
-                TempData["Result"] = "Service Error";
-                return View("Result");
+                TempData["ErrorMsg"] = "Service Error";
+                return View("Message");
             }
 
-            TempData["Result"] = "請去收重設密碼驗證信";
-            return View();
+            TempData["SuccessMsg"] = "請去收重設密碼驗證信";
+            return View("Message");
         }
 
         public ActionResult ResetPassword()
@@ -155,9 +159,13 @@ namespace MoreGrid_MVC.Controllers
         {
             string memberId = Request.QueryString["memberId"] ?? "";
             string validateCode = Request.QueryString["validateCode"] ?? "";
-            TempData["Result"] = memberService.ResetPassword(memberId, validateCode, password);
+            string message = memberService.ResetPassword(memberId, validateCode, password);
+            if (string.IsNullOrEmpty(message))
+                TempData["SuccessMsg"] = "密碼重新設定成功";
+            else
+                TempData["ErrorMsg"] = message;
 
-            return View();
+            return View("Message");
         }
         #endregion
     }

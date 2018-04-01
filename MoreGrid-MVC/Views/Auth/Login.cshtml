@@ -15,22 +15,26 @@
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
-                        <fieldset>
-                            <div class="form-group">
-                                @* TODO: placeholder寫到Model *@
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入Email" } })
-                            </div>
-                            <div class="form-group">
-                                @* TODO: placeholder寫到Model *@
-                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入密碼" } })
-                            </div>
-                            <div class="checkbox">
-                                <label>
-                                    @Html.EditorFor(model => model.RememberMe) 記住我
-                                </label>
-                            </div>
-                            <input type="submit" value="登入" class="btn btn-lg btn-success btn-block" />
-                        </fieldset>
+                    <fieldset>
+                        <div class="form-group">
+                            @* TODO: placeholder寫到Model *@
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入Email" } })
+                        </div>
+                        <div class="form-group">
+                            @* TODO: placeholder寫到Model *@
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "請輸入密碼" } })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.EditorFor(model => model.RememberMe) 記住我
+                            </label>
+                        </div>
+                        <input type="submit" value="登入" class="btn btn-lg btn-success btn-block" />
+                        <div class="pull-right">
+                            @Html.ActionLink("忘記密碼", "ForgetPassword", "account", null, null)
+                            @Html.ActionLink("註冊", "Register", "account", null, null)
+                        </div>
+                    </fieldset>
                     }
                 </div>
             </div>

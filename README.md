@@ -1,7 +1,9 @@
 # 魔格 .NET MVC
 
-## 
-[sb-admin-2](https://startbootstrap.com/template-overviews/sb-admin-2/)
+
+
+## Reference
+版型： [sb-admin-2](https://startbootstrap.com/template-overviews/sb-admin-2/)
 
 ## 問題
 * `sb-admin-2.js:7 Uncaught TypeError: $(...).metisMenu is not a function`

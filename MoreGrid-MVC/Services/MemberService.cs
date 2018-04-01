@@ -23,14 +23,13 @@ namespace MoreGrid_MVC.Services
         {
             try
             {
-                var query = db.Members.Where(p => p.Email == member.Email);
-                if (query.Count() > 0)
+                if (!this.CheckEmail(member.Email))
                     return "此Email已註冊過";
 
                 member.Password = HashPassword(member.Password);
                 member.Status = false;
                 //TODO:
-                member.Birthday = DateTime.Now;
+                //member.Birthday = DateTime.Now;
                 member.RegisterTime = DateTime.Now;
                 member.UpdateTime = DateTime.Now;
                 db.Members.Add(member);
@@ -80,7 +79,7 @@ namespace MoreGrid_MVC.Services
                 if (member != null)
                 {
                     if (member.ValidateCode == string.Empty)
-                        message = "此Email以驗證過";
+                        message = "此Email已驗證過";
 
                     else if (member.ValidateCode == validateCode)
                     {

@@ -1,0 +1,23 @@
+﻿
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            訊息
+        </div>
+        <div class="panel-body">
+            @if (TempData["SuccessMsg"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMsg"]
+                </div>
+            }
+            @if (TempData["ErrorMsg"] != null)
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMsg"]
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
