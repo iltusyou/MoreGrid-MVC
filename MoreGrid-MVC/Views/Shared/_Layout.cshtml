@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using MoreGrid_MVC.Helpers;
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>魔格</title>
@@ -11,7 +13,7 @@
 <body>
     <div id="wrapper">
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -22,6 +24,29 @@
                 @Html.ActionLink("魔格", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <!-- /.navbar-header -->
+
+            @{
+                if (UserHelper.GetUserData() == null)
+                {
+                    <div class="navbar-collapse collapse navbar-right" style="margin-right:0px;">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("登入", "Login", "Auth")</li>
+                            <li>@Html.ActionLink("註冊", "Register", "Account")</li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="navbar-collapse collapse navbar-right" style="margin-right:0px;">
+                        <ul class="nav navbar-nav">
+                            <li>@Html.ActionLink("管理後台", "Index", "Manage")</li>
+                        </ul>
+                    </div>
+                }
+            }
+
+            <!-- 若為管理畫面，需顯示側邊攔 -->
+            @RenderSection("featured", required: false)
         </nav>
         <div>
             @RenderBody()
